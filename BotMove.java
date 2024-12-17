@@ -19,63 +19,41 @@ public class BotMove{
         return botY;
     }
 
-    public String getBotCommand(char[][] map, int playerX, int playerY){
-        String[] moves = {"Move N", "Move S", "Move W", "Move E"};
-        int[] change_in_x = {-1, 1, 0, 0};
-        int[] change_in_y = {0, 0, -1, 1};
+    private boolean isValidMove(char[][] map, int x, int y) 
+    {
+        return x >= 0 && x < map.length && y >= 0 && y < map[0].length && map[x][y] != '#';
+    }
 
-        double minDistance = Double.MAX_VALUE;
-        String bestMove = "";
+    public String getBotCommand(char[][] map, int playerX, int playerY)
+    {
+        map[botX][botY] = '.';
 
-
-        for (int i = 0; i < moves.length; i++){
-            int newBotX = botX + change_in_x[i];
-            int newBotY = botY + change_in_y[i];
-
-            if (newBotX >= 0 && newBotX < map.length && newBotY >= 0 && newBotY < map[0].length && map[newBotX][newBotY] != '#'){
-                double distanceToPlayer = Math.sqrt(Math.pow(playerX - newBotX, 2) + Math.pow(playerY - newBotY, 2));
-
-                if (distanceToPlayer < minDistance){
-                    minDistance = distanceToPlayer;
-                    bestMove = moves[i];
-                }
-            }
-        }
-        if (bestMove.isEmpty()){
-            for (int i = 0; i < moves.length; i++){
-                int newBotX = botX + change_in_x[i];
-                int newBotY = botY + change_in_y[i];
-                if(newBotX >= 0 && newBotX < map.length && newBotY >= 0 && newBotY < map[0].length && map[newBotX][newBotY] != '#')
-                {
-                    bestMove = moves[i];
-                    break;
-                }
-            }
-        }
-
-
-        /*if (!bestMove.isEmpty()){
-            map[botX][botY] = '.';
-
-            if (bestMove.equals("Move N")) {
-                botX -= 1; 
-            }
-            else if (bestMove.equals("Move S")){
-                botX += 1;
-            }
-            else if (bestMove.equals("Move W")){
-                botY -= 1;
-            }
-            else if (bestMove.equals("Move E")){
-                botY += 1;
-            }
+        if (botX > playerX && isValidMove(map, botX - 1, botY))
+        {
+            botX -= 1;
             map[botX][botY] = 'B';
+            return "Move N";
         }
-        else{
-            System.out.println("No move was found");
-        }*/
-        return bestMove;
-
+        else if (botX < playerX && isValidMove(map, botX + 1, botY)) 
+        {
+            botX += 1;
+            map[botX][botY] = 'B';
+            return "Move S";
+        }
+        else if (botY > playerY && isValidMove(map, botX, botY - 1)) 
+        {
+            botY -= 1;
+            map[botX][botY] = 'B';
+            return "Move W";
+        }
+        else if (botY < playerY && isValidMove(map, botX, botY + 1)) 
+        {
+            botY += 1;
+            map[botX][botY] = 'B';
+            return "Move E";
+        }
+        map[botX][botY] = 'B';
+        return "No Move";
     }
 
 

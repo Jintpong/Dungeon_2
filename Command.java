@@ -22,7 +22,6 @@ public class Command {
     // Constructor
     public Command(char[][] map) {
         this.map = map;
-        this.bot = new BotMove(botX, botY);
         // Initialise the position of gold
         this.positionGold = new boolean[map.length][map[0].length];
         for (int i = 0; i < map.length; i++){
@@ -57,6 +56,7 @@ public class Command {
         this.goldtowin = 3;
         this.playergold = 0;
         this.endgame = false;
+        this.bot = new BotMove(botX, botY);
         map[playerX][playerY] = 'P';
         map[botX][botY] = 'B';
 
