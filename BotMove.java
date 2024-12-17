@@ -9,10 +9,14 @@ public class BotMove{
     // botX represents row and botY represent column
     private int botX;
     private int botY; 
+    private int goldCollected;
+    private int goldToWin;
 
     public BotMove(int start_X, int start_Y){
         this.botX = start_X;
         this.botY = start_Y;
+        this.goldCollected = 0;
+        this.goldToWin = 3;
     }
     //Return the bot current X position
     public int getBotX(){
@@ -30,10 +34,65 @@ public class BotMove{
         return x >= 0 && x < map.length && y >= 0 && y < map[0].length && map[x][y] != '#';
     }
 
+    //checking if the gold is valid in the position
+    private boolean isGold(char[][] map, int x, int y)
+    {
+        return x >= 0 && x < map.length && y >= 0 && y < map[0].length && map[x][y] == 'G';
+    }
+
     public String getBotCommand(char[][] map, int playerX, int playerY)
     {
         // Clear the current position of the bot in the map
         map[botX][botY] = '.';
+
+        if (goldCollected >= goldToWin)
+        {
+            return "The bot has collected enough gold";
+        }
+
+        // Check if the bot is in the same position as the gold
+        if (map[botX][botY] == 'G')
+        {
+            goldCollected += 1;
+            map[botX][botY] = '.';
+            map[botX][botY] = 'B';
+            return "Bot pickup Gold";
+        }
+        
+        if (isGold(map, botX - 1, botY))
+        {
+            botX += 1;
+            goldCollected += 1;
+            map[botX][botY] = 'B';
+            return "Bot pick up gold and move N";
+        }
+        else if (isGold(map, botX + 1, botY))
+        {
+            botX += 1;
+            goldCollected += 1;
+            map[botX][botY] = 'B';
+            return "Bot pick up gold and move S";
+        }
+        else if (isGold(map, botX, botY - 1))
+        {
+            botY -= 1;
+            goldCollected += 1;
+            map[botX][botY] = 'B';
+            return "Bot pick up gold and move W";
+        }
+        else if (isGold(map, botX, botY + 1))
+        {
+            botX += 1;
+            goldCollected += 1;
+            map[botX][botY] = 'B';
+            return "Bot pick up gold and move E";
+        }
+
+
+        if (botX == playerX && botY == playerY)
+        {
+            return "Bot has caught the player";
+        }
 
         // Make the bot move N and mark new position on the map
         if (botX > playerX && isValidMove(map, botX - 1, botY))
@@ -66,11 +125,15 @@ public class BotMove{
             map[botX][botY] = 'B';
             return "Move E";
         }
+        else
+        {
+            // If no move is valid mark the bot current position
+            map[botX][botY] = 'B';
+            return "No Move";
+        }
 
-        // If no move is valid mark the bot current position
-        map[botX][botY] = 'B';
-        return "No Move";
     }
+
 
 
 }

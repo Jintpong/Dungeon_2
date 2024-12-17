@@ -17,7 +17,7 @@ public class Map {
         "#..................#".toCharArray(),
         "#.........G........#".toCharArray(),
         "#.........E........#".toCharArray(),
-        "#..................#".toCharArray(),
+        "#................G.#".toCharArray(),
         "#..................#".toCharArray(),
         "#..G...............#".toCharArray(),
         "####################".toCharArray()
@@ -28,10 +28,10 @@ public class Map {
         "#..............GE..#".toCharArray(),
         "#...G..............#".toCharArray(),
         "#..................#".toCharArray(),
-        "#..................#".toCharArray(),
+        "#.G................#".toCharArray(),
         "#...............G..#".toCharArray(),
         "#..................#".toCharArray(),
-        "#..................#".toCharArray(),
+        "#....G.............#".toCharArray(),
         "####################".toCharArray()
     };
 
