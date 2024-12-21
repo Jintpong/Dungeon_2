@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Command {
+public class HumanPlayer {
     private char[][] map;
     // Create the amount of gold to win
     private int goldtowin;
@@ -17,10 +17,12 @@ public class Command {
     private boolean[][] positionExit;
     //Will use this in the while loop to keep track that as long as the game is not over continue asking the player
     private boolean endgame;
-    private BotMove bot;
+    private BotPlayer bot;
+    private boolean isOnExit = false;
+
 
     // Constructor
-    public Command(char[][] map) {
+    public HumanPlayer(char[][] map) {
         this.map = map;
         // Initialise the position of gold
         this.positionGold = new boolean[map.length][map[0].length];
@@ -54,9 +56,9 @@ public class Command {
         this.botX = 4;
         this.botY = 2;
         this.goldtowin = 3;
-        this.playergold = 0;
+        this.playergold = 3;
         this.endgame = false;
-        this.bot = new BotMove(botX, botY);
+        this.bot = new BotPlayer(botX, botY);
         map[playerX][playerY] = 'P';
         map[botX][botY] = 'B';
 
@@ -64,11 +66,8 @@ public class Command {
 
 
     public void HumanCommand(String command) {
-        if (command.equals("QUIT")) {
-            System.out.println("Player quit the game.");
-            endgame = true; // End the game loop
-        } 
-        else if (command.equals("HELLO")) {
+
+        if (command.equals("HELLO")) {
             System.out.println("Gold to win: " + goldtowin);
             } 
 
@@ -92,6 +91,7 @@ public class Command {
             else if (direction.equals("W")) {
                 new_y -= 1;
             } 
+
             else {
                 System.out.println("Invalid Direction");
                 return; // Exit early on invalid direction
@@ -101,12 +101,12 @@ public class Command {
             if (new_x >= 0 && new_x < map.length && new_y >= 0 && new_y < map[0].length) {
                 // Check that it's not a wall
                 if (map[new_x][new_y] != '#') {
-                    // Handle moving to exit
-                    if (positionExit[new_x][new_y]) {
-                        map[new_x][new_y] = 'P';
-                    }
+
+                    isOnExit = map[new_x][new_y] == 'E';
+
+
                     // Handle moving to gold
-                    else if (map[new_x][new_y] == 'G') {
+                    if (map[new_x][new_y] == 'G') {
                         map[new_x][new_y] = 'P';
                     }
 
@@ -140,6 +140,17 @@ public class Command {
                 System.out.println("Fail. No gold to pick up.");
             }
         } 
+        else if (command.equals("QUIT")){
+            if(isOnExit && playergold >= goldtowin){
+            System.out.println("WIN, you have collected enough gold");
+            endgame = true;
+            }
+            else{
+                System.out.println("Lose");
+                endgame = true;
+            }
+        }
+
         else if (command.equals("GOLD")) {
             System.out.println("Gold owned: " + playergold);
             }

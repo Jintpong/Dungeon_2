@@ -1,10 +1,10 @@
 import java.lang.Math;
 import java.util.Random;
 
-// The BotMove class will be use to represent the bot that will be move within a 2D grid
+// The BotPlayer class will be use to represent the bot that will be move within a 2D grid
 // It will track the bot current position and the bot will chase the player by comparing the bot's position and the player's position and move one step closer
 
-public class BotMove{
+public class BotPlayer{
     // Storing the bot current position
     // botX represents row and botY represent column
     private int botX;
@@ -12,11 +12,13 @@ public class BotMove{
     private int goldCollected;
     private int goldToWin;
 
-    public BotMove(int start_X, int start_Y){
+
+    public BotPlayer(int start_X, int start_Y){
         this.botX = start_X;
         this.botY = start_Y;
         this.goldCollected = 0;
         this.goldToWin = 3;
+        
     }
     //Return the bot current X position
     public int getBotX(){

@@ -11,7 +11,7 @@ public class Main {
         System.out.println("Choose 1 for Map 1 ");
         System.out.println("Choose 2 for Map 2 ");
         System.out.println("Choose 3 for Map 3 ");
-        System.out.println("Enter your choic:  ");
+        System.out.println("Enter your choice:  ");
 
         // check the user input 
         int choice = scanner.nextInt();
@@ -25,7 +25,7 @@ public class Main {
             System.out.println(new String(row));
         }
 
-        Command command = new Command(chosenMap);
+        HumanPlayer command = new HumanPlayer(chosenMap);
         command.UserInput();
 
     }
