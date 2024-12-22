@@ -13,11 +13,13 @@ public class BotPlayer{
     private int goldToWin;
 
 
+
     public BotPlayer(int start_X, int start_Y){
         this.botX = start_X;
         this.botY = start_Y;
         this.goldCollected = 0;
         this.goldToWin = 3;
+
         
     }
     //Return the bot current X position
@@ -50,6 +52,11 @@ public class BotPlayer{
         if (goldCollected >= goldToWin)
         {
             return "The bot has collected enough gold";
+        }
+        // When the bot has caught the player
+        if (botX == playerX && botY == playerY)
+        {
+            return "Bot has caught the player";
         }
 
         // Check if the bot is in the same position as the gold
@@ -90,11 +97,6 @@ public class BotPlayer{
             return "Bot pick up gold and move E";
         }
 
-
-        if (botX == playerX && botY == playerY)
-        {
-            return "Bot has caught the player";
-        }
 
         // Make the bot move N and mark new position on the map
         if (botX > playerX && isValidMove(map, botX - 1, botY))

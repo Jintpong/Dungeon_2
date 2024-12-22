@@ -56,7 +56,7 @@ public class HumanPlayer {
         this.botX = 4;
         this.botY = 2;
         this.goldtowin = 3;
-        this.playergold = 3;
+        this.playergold = 0;
         this.endgame = false;
         this.bot = new BotPlayer(botX, botY);
         map[playerX][playerY] = 'P';
@@ -94,7 +94,7 @@ public class HumanPlayer {
 
             else {
                 System.out.println("Invalid Direction");
-                return; // Exit early on invalid direction
+                return; 
             }
 
             // Check new position
