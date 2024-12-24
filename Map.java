@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Map {
     private final char[][] map_1 = {
         "####################".toCharArray(),
@@ -51,5 +55,6 @@ public class Map {
             return map_1;
         }
     }
+
 }
 
