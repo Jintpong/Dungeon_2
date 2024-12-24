@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Map {
     private final char[][] map_1 = {
@@ -57,7 +58,12 @@ public class Map {
     }
 
     // Load map from a file
-    public char[][] loadMapFromFile(String filePath){
+    public char[][] loadMapFromFile(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the file path: ");
+        String filePath = scanner.nextLine();
+
+
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))){
             String line;
             char[][] map = new char[100][];

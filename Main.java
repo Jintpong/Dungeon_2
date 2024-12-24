@@ -34,9 +34,7 @@ public class Main {
 
         }
         else if (user_choice == 2){
-            System.out.print("Enter the file path: ");
-            String filePath = scanner.nextLine();
-            chosenMap = gameMap.loadMapFromFile(filePath);
+            chosenMap = gameMap.loadMapFromFile();
             if (chosenMap == null){
                 System.out.println("Fail to load map");
                 return;
