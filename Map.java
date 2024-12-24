@@ -56,5 +56,25 @@ public class Map {
         }
     }
 
+    // Load map from a file
+    public char[][] loadMapFromFile(String filePath){
+        try(BufferedReader reader = new BufferedReader(new FileReader(filePath))){
+            String line;
+            char[][] map = new char[100][];
+            int rowIndex = 0;
+            while ((line = reader.readLine()) != null){
+                map[rowIndex++] = line.toCharArray();
+            }
+
+            char[][] resizedMap = new char[rowIndex][];
+            System.arraycopy(map, 0, resizedMap, 0, rowIndex);
+            return resizedMap;
+        }
+        catch (IOException e){
+            System.out.println("Error loading the map file");
+            return null;
+        }
+    }
+
 }
 

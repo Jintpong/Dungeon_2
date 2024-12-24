@@ -2,10 +2,11 @@ import java.util.Scanner;
 
 
 public class Main {
-    public static void Main(String[] args) {
+    public static void main(String[] args) {
         // Create an instance of the Map class
         Scanner scanner = new Scanner(System.in);
         Map gameMap = new Map();
+        char[][] chosenMap = null;
 
 
         System.out.println("Select how you want to load the map: ");
@@ -28,8 +29,7 @@ public class Main {
             int choice = scanner.nextInt();
 
             //Get the map base on the chosen choice
-            char[][] chosenMap = gameMap.get_Map(choice);
-            break;
+            chosenMap = gameMap.get_Map(choice);
 
 
         }
@@ -37,10 +37,15 @@ public class Main {
             System.out.print("Enter the file path: ");
             String filePath = scanner.nextLine();
             chosenMap = gameMap.loadMapFromFile(filePath);
-            break;
+            if (chosenMap == null){
+                System.out.println("Fail to load map");
+                return;
+            }
+
         }
         else{
             System.out.println("Invalid Choice");
+            return;
         }
 
 
